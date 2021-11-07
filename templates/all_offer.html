@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Все заказы
+{% endblock %}
+
+{% block body %}
+
+{% for of in off %}
+
+<div class="ui raised very padded text container segment">
+    <div class="header">
+        {{of.offname}}
+    </div>
+    <div class="meta">
+        {{of.nameBy}}
+    </div>
+    <div class="description">
+        кол-во: {{of.count}}
+    </div>
+    <div class="description">
+        Адрес доставки: {{of.address}}
+    </div>
+    <div class="description">
+        о клиенте: {{of.phone}}
+    </div>
+
+    <a class="ui green label">{{of.status}}</a>
+
+    <div class="extra content">
+        <div class="ui two buttons">
+            <div class="ui basic red button">Отменить</div>
+            <div class="ui basic green button">Изменить</div>
+        </div>
+    </div>
+</div>
+
+
+{% endfor %}
+{% endblock %}

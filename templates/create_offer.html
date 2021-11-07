@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Создать заказ
+{% endblock %}
+
+{% block body %}
+
+<form class="ui form" method="post">
+    <h4 class="ui dividing header">Shipping Information</h4>
+    <div class="field">
+        <label>Наименование организации и товара</label>
+        <div class="two fields">
+            <div class="field">
+                <input type="text" name="offname" placeholder="Наименование товара">
+            </div>
+            <div class="field">
+                <input type="text" name="byname" placeholder="Наименование покупателя">
+            </div>
+        </div>
+    </div>
+    <h4 class="ui dividing header">Основная информация</h4>
+    <div class="fields">
+        <div class="seven wide field">
+            <label>Адрес</label>
+            <input type="text" name="address" placeholder="Напишите адрес">
+        </div>
+        <div class="three wide field">
+            <label>колличество</label>
+            <input type="text" name="count" placeholder="Кол-во">
+        </div>
+        <div class="six wide field">
+            <label>О клиенте</label>
+            <div class="two fields">
+                <div class="field">
+                    <input type="text" name="phone" placeholder="Номер\male">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="ui button" type="submit">Отправить</button>
+</form>
+
+{% endblock %}
