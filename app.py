@@ -84,6 +84,8 @@ def updateOffer(id,status):
         usr = db.getUserByNic(session["user"])["type"]
         if usr == "performer":
             db.setOfferStatus(id=id,stat=status)
+            print(id,type(status))
+            return redirect("/all_offer_for_performer")
         else:
             return "Получите нужный статус у администратора"
     except:

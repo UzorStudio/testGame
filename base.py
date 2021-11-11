@@ -44,7 +44,7 @@ class Offers():
         db = self.classter["Shop"]
         Offer = db["offer"]
 
-        Offer.update_one({"_id":id},{"$set":{"status":stat}})
+        Offer.update_one({"_id":ObjectId(id)},{"$set":{"status":stat}})
 
     def all_offrers(self):
         db = self.classter["Shop"]

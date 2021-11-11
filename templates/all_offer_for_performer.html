@@ -26,16 +26,18 @@ all offer for u
 
     <a class="ui green label">{{of.status}}</a>
 
+    {% if "done" != of.status %}
     <div class="extra content">
         <div class="ui two buttons">
             {% if "none" in of.status %}
-            <div class="ui basic red button">Взять заказ</div>
+            <div class="ui basic red button"><a href="/update_offer/{{of._id}}/inproces">Взять заказ</a></div>
             {% endif %}
             {% if "inproces" in of.status %}
-            <div class="ui basic red button">Заказ готов</div>
+            <div class="ui basic red button"><a href="/update_offer/{{of._id}}/done">Заказ Готов</a></div>
             {% endif %}
         </div>
     </div>
+    {% endif %}
 </div>
 
 
