@@ -1,6 +1,6 @@
 import pymongo
 from bson import ObjectId
-
+import datetime
 
 class Offers():
     def __init__(self,classterMongo):
@@ -37,7 +37,9 @@ class Offers():
               "count":count,
               "address":address,
               "phone":phone,
-              "status":"none"}
+              "status":"none",
+              "time":datetime.datetime.now()}
+        print(datetime.datetime.now())
         Offer.insert_one(post)
 
     def setOfferStatus(self,id,stat):
@@ -54,4 +56,4 @@ class Offers():
         of = []
         for document in cursor:
             of.append(document)
-        return of
+        return of[::-1]

@@ -36,7 +36,11 @@ def login():
             print("in")
             session["user"] = name
             db.setUserStatus(name, "login")
-            return redirect("/")
+            if db.getUserByNic(name)["type"] == "performer":
+                return redirect("/all_offer_for_performer")
+            else:
+                return redirect("/")
+
         elif db.getUserByNic(name)["password"] != password:
             return "Неверный пароль"
 
@@ -51,6 +55,8 @@ def all_offer():
         print("ok")
         if usr == "admin":
             return render_template("all_offer.html",off=off)
+        elif usr == "performer":
+            return redirect("/all_offer_for_performer")
         else:
             return "Получите нужный статус у администратора"
     except:
