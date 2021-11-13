@@ -6,7 +6,7 @@ from datetime import datetime
 db = base.Offers("localhost")
 app = Flask(__name__)
 app.secret_key = "efwegfewrgeqrgergfhjhlyujmfgvf234234"
-print(db.get_offer_by_date(yaar=2021,month=11,day=12))
+print(db.get_offer_by_date(yaar=2021,month=11,day=13))
 
 @app.route("/")
 def index():
@@ -54,20 +54,41 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/all_offer")
+@app.route("/all_offer",methods=["POST","GET"])
 def all_offer():
-    try:
-        usr = db.getUserByNic(session["user"])["type"]
-        off = db.all_offrers()
-        print("ok")
-        if usr == "admin":
-            return render_template("all_offer.html",off=off)
-        elif usr == "performer":
-            return redirect("/all_offer_for_performer")
-        else:
-            return "Получите нужный статус у администратора"
-    except:
-        return redirect("/login")
+    if request.method == "POST":
+        day = request.form["name"]
+        yar = request.form["yar"]
+        month = request.form["month"]
+
+        try:
+            usr = db.getUserByNic(session["user"])["type"]
+            off = db.get_offer_by_date(yaar=yar, month=month, day=day)
+            bd = db.getDB()
+            print("ok")
+            if usr == "admin":
+                return render_template("all_offer.html",off=off,db=bd)
+            elif usr == "performer":
+                return redirect("/all_offer_for_performer")
+            else:
+                return "Получите нужный статус у администратора"
+        except:
+            return redirect("/login")
+
+    else:
+        try:
+            usr = db.getUserByNic(session["user"])["type"]
+            off = db.get_offer_NOW()
+            bd = db.getDB()
+            print("ok")
+            if usr == "admin":
+                return render_template("all_offer.html",off=off,db=bd)
+            elif usr == "performer":
+                return redirect("/all_offer_for_performer")
+            else:
+                return "Получите нужный статус у администратора"
+        except:
+            return redirect("/login")
 
 @app.route("/create_offer", methods=["POST","GET"])
 def createOffer():

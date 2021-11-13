@@ -5,9 +5,39 @@
 {% endblock %}
 
 {% block body %}
+<form class="ui form">
+    <div class="fields">
+        <div class="six wide field">
+            <div class="fields">
+                <select class="ui fluid search dropdown" name="yar">
+                    <option value="">Год</option>
+                    {% for d in db %}
+                    <option value="{{d.data.yar}}">{{d.data.yar}}</option>
+                    {% endfor %}
+                </select>
+                <select class="ui fluid search dropdown" name="yar">
+                    <option value="">Месяц</option>
+                    {% for d in db %}
+                    <option value="{{d.data.yar}}">{{d.data.month}}</option>
+                    {% endfor %}
+                </select>
+                <select class="ui fluid search dropdown" name="yar">
+                    <option value="">День</option>
+                    {% for d in db %}
+                    <option value="{{d.data.yar}}">{{d.data.day}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+        <button class="ui button" type="submit">Отправить</button>
+        </div>
+    </div>
+
+</form>
 
 {% for of in off %}
-
 <div class="ui raised very padded text container segment">
     <div class="header">
         {{of.offname}}
@@ -27,8 +57,18 @@
     <div class="description">
         Дата: {{of.time}}
     </div>
-
-    <a class="ui green label">{{of.status}}</a>
+    <div class="description">
+        Исполнитель: {{of.performer}}
+    </div>
+    {% if "none" in of.status %}
+        <a class="ui red label">{{of.status}}</a>
+    {% endif %}
+    {% if "inproces" in of.status %}
+        <a class="ui yalow label">{{of.status}}</a>
+    {% endif %}
+    {% if "done" in of.status %}
+        <a class="ui green label">{{of.status}}</a>
+    {% endif %}
 
 </div>
 

@@ -43,6 +43,9 @@ class Offers():
     def createOffer(self,nameBy,count,phone,address,offname,performer):
         db = self.classter["Shop"]
         Offer = db["offer"]
+        DateBase = db["DateBase"]
+
+
         data = datetime.datetime.utcnow().date().timetuple()
         time = {"yar":data[0],
                 "month":data[1],
@@ -56,8 +59,28 @@ class Offers():
               "status":"none",
               "time":time,
               "performer":performer}
-        print(datetime.datetime.utcnow().date())
+
         Offer.insert_one(post)
+
+        cursor = DateBase.find({})
+        for document in cursor:
+            if document["data"] == time:
+                print("break")
+                break
+            else:
+                print("new date add")
+                DateBase.insert_one({"data":time})
+
+
+    def getDB(self):
+        db = self.classter["Shop"]
+        DateBase = db["DateBase"]
+
+        cursor = DateBase.find({})
+        of = []
+        for document in cursor:
+            of.append(document)
+        return of[::-1]
 
     def setOfferStatus(self,id,stat):
         db = self.classter["Shop"]
@@ -94,7 +117,13 @@ class Offers():
                 "month": month,
                 "day": day}
 
-        return Offer.find_one({"time": time})
+        cursor = Offer.find({})
+        of = []
+        for document in cursor:
+            if document["time"] == time:
+                of.append(document)
+        return of[::-1]
+
 
     def get_offer_NOW(self,):
         db = self.classter["Shop"]
