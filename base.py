@@ -30,7 +30,7 @@ class Offers():
         cursor = User.find({})
         usr = []
         for document in cursor:
-            if usr["type"] == "performer":
+            if document["type"] == "performer":
                 usr.append(document)
         return usr[::-1]
 

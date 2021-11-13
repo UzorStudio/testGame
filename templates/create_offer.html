@@ -43,7 +43,7 @@
                 <label>Выбор исполнителя</label>
                 <select class="ui fluid dropdown" name="performer">
                     {% for p in prf %}
-                    <option value="">p.name</option>
+                    <option value="{{p.name}}">{{p.name}}</option>
                     {% endfor %}
                 </select>
             </div>
