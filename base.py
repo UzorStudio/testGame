@@ -23,23 +23,40 @@ class Offers():
 
         return User.find_one({"name":name})
 
+    def getPerformer(self):
+        db = self.classter["Shop"]
+        User = db["User"]
+
+        cursor = User.find({})
+        usr = []
+        for document in cursor:
+            if usr["type"] == "performer":
+                usr.append(document)
+        return usr[::-1]
+
     def setUserStatus(self,name,status):
         db = self.classter["Shop"]
         User = db["User"]
         User.update_one({"name":name},{"$set":{"status":status}})
 
 
-    def createOffer(self,nameBy,count,phone,address,offname):
+    def createOffer(self,nameBy,count,phone,address,offname,performer):
         db = self.classter["Shop"]
         Offer = db["offer"]
+        data = datetime.datetime.utcnow().date().timetuple()
+        time = {"yar":data[0],
+                "month":data[1],
+                "day":data[2]}
+
         post={"nameBy":nameBy,
               "offname":offname,
               "count":count,
               "address":address,
               "phone":phone,
               "status":"none",
-              "time":datetime.datetime.now()}
-        print(datetime.datetime.now())
+              "time":time,
+              "performer":performer}
+        print(datetime.datetime.utcnow().date())
         Offer.insert_one(post)
 
     def setOfferStatus(self,id,stat):
@@ -53,6 +70,42 @@ class Offers():
         Offer = db["offer"]
 
         cursor = Offer.find({})
+        of = []
+        for document in cursor:
+            of.append(document)
+        return of[::-1]
+
+    def all_offrers_by_performer(self,performer):
+        db = self.classter["Shop"]
+        Offer = db["offer"]
+
+        cursor = Offer.find({})
+        of = []
+        for document in cursor:
+            if document["performer"] == performer:
+                of.append(document)
+        return of[::-1]
+
+    def get_offer_by_date(self,yaar,month,day):
+        db = self.classter["Shop"]
+        Offer = db["offer"]
+
+        time = {"yar": yaar,
+                "month": month,
+                "day": day}
+
+        return Offer.find_one({"time": time})
+
+    def get_offer_NOW(self,):
+        db = self.classter["Shop"]
+        Offer = db["offer"]
+
+        data = datetime.datetime.utcnow().date().timetuple()
+        time = {"yar": data[0],
+                "month": data[1],
+                "day": data[2]}
+
+        cursor = Offer.find({"time": time})
         of = []
         for document in cursor:
             of.append(document)

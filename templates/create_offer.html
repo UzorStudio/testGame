@@ -39,14 +39,13 @@
         </div>
 
         <div class="six wide field">
-            <div class="ui dropdown label">
-                <div class="text">Исполнители</div>
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <div class="item">.com</div>
-                    <div class="item">.net</div>
-                    <div class="item">.org</div>
-                </div>
+            <div class="field">
+                <label>Выбор исполнителя</label>
+                <select class="ui fluid dropdown" name="performer">
+                    {% for p in prf %}
+                    <option value="">p.name</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
 
